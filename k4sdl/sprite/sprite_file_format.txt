@@ -1,0 +1,26 @@
+Sprite file format
+
+Header
+Offset    Name          Length (Bytes)  Type
+0         Header        4               4 chars ("SPR\x20")
+4         FrameCount    1               uint8
+5         TagCount      1               uint8
+6         FrameDataTbl  8 * FrameCount  FrameDatas
+-         TagDataTbl    -               TagDatas
+
+FrameData 8 bytes (maximum is 65536pixels)
+Offset    Name          Length (Bytes)  Type
+0         x             2               uint16
+2         y             2               uint16
+4         w             2               uint16
+6         h             2               uint16
+
+TagData
+Offset    Name                Length (Bytes)  Type
+0         childXOff           2               int16
+2         childYOff           2               int16
+4         childTagNum         2               uint16
+6         name                -               null terminated string
+-         frameCount          1               uint8
+-         frames              1 * frameCount  List<uint8>
+-         frameDurations      4 * frameCount  List<float>

@@ -1,0 +1,9 @@
+# Specify filepatterns you want git to ignore.
+build
+.vscode
+tools/.idea
+*.pyc
+*.json
+*.dat
+game_data
+*.png

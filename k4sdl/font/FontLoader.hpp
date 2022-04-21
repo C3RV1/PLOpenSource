@@ -1,0 +1,31 @@
+#ifndef K4SDL_FONTLOADER
+#define K4SDL_FONTLOADER
+
+namespace k4sdl {
+    class FontLoader;
+}
+
+#include <string>
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include "Font.hpp"
+#include "../sprite/Text.hpp"
+#include <iostream>
+#include <fstream>
+
+namespace k4sdl {
+    class FontLoader {
+    public:
+        virtual void load(std::string path, int size, Text &text) = 0;
+    };
+
+    class FontLoaderOS : public FontLoader {
+    public:
+        FontLoaderOS(std::string l_basePath = "") : basePath(l_basePath) {};
+        virtual void load(std::string path, int size, Text &text);
+    private:
+        std::string basePath;
+    };
+}
+
+#endif
