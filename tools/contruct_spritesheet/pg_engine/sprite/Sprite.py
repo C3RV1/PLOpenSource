@@ -23,6 +23,6 @@ class Tag:
     name: str
     frames: List[int]
     frame_durations: List[float]
-    childOffX: int
-    childOffY: int
-    childTag: int
+    child_x: int
+    child_y: int
+    child_index: int
