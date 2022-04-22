@@ -17,7 +17,7 @@ class SpriteLoaderOS(SpriteLoader):
             path = os.path.join(self.base_path, path)
 
         if not os.path.isfile(path):
-            return
+            return None, None
             
         frame_info = []
         tag_info = []

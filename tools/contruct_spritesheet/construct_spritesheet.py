@@ -2,14 +2,23 @@ from sprite.SpriteLoader import SpriteLoaderOS
 from sprite.Sprite import Frame, Tag
 import os
 import struct
+import argparse
 
 
-def main(path: str):
-    sprite_loader_os = SpriteLoaderOS("input")
-    frame_info, tag_info = sprite_loader_os.load(path)
+def main():
+    parser = argparse.ArgumentParser(description="Convert a Aseprite JSON Spritesheet to k4sdl format")
+    parser.add_argument("input_path", help="Input file (JSON from Aseprite w/ array option)")
+    parser.add_argument("output_path", help="Output file (.dat preferably)")
+    args = parser.parse_args()
+
+    sprite_loader_os = SpriteLoaderOS()
+    frame_info, tag_info = sprite_loader_os.load(args.input_path)
+    if frame_info is None:
+        print(f"File {args.input_path} not found")
+        return
     endian = "@"
 
-    with open(os.path.join("output", os.path.splitext(os.path.basename(path))[0]) + ".dat", "wb") as f:
+    with open(args.output_path, "wb") as f:
         f.write(b"SPR\x20")
         f.write(struct.pack(endian + "BB", len(frame_info), len(tag_info)))
         for frame in frame_info:
@@ -27,4 +36,4 @@ def main(path: str):
 
 
 if __name__ == "__main__":
-    main("headphones_play.png.json")
+    main()
