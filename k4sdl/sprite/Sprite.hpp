@@ -59,8 +59,13 @@ namespace k4sdl {
                         std::vector<Tag> l_tagInfo);
         
         void setFrame(int num);
+        int getFrame();
+        int getFrameCount();
         void setTag(std::string name);
+        std::string getTagName();
         void setTagByNum(int num);
+        int getTagNum();
+        int getTagCount();
         void animate(float dt);
         
         float getRotation();

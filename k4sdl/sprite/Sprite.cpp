@@ -27,12 +27,28 @@ namespace k4sdl {
     }
 
     void Sprite::setFrame(int num) {
-        if (num < frameInfo.size() && num >= 0 && activeFrame != num) {
+        if (num < (int)frameInfo.size() && num >= -1 && activeFrame != num) {
             activeFrame = num;
-            width = frameInfo[activeFrame].w;
-            height = frameInfo[activeFrame].h;
+            if (activeFrame == -1) {
+                if (texture != NULL)
+                    SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+                else {
+                    width = 0; height = 0;
+                }
+            } else {
+                width = frameInfo[activeFrame].w;
+                height = frameInfo[activeFrame].h;
+            }
             predictRealSize();
         }
+    }
+
+    int Sprite::getFrame() {
+        return activeFrame;
+    }
+
+    int Sprite::getFrameCount() {
+        return frameInfo.size();
     }
 
     void Sprite::setTag(std::string name) {
@@ -45,17 +61,37 @@ namespace k4sdl {
             }
             i++;
         }
+        std::cout << "Tag " << name << " not found" << std::endl;
+    }
+
+    std::string Sprite::getTagName() {
+        if (activeTag == -1)
+            return "";
+        return tagInfo[activeTag].name;
     }
 
     void Sprite::setTagByNum(int num) {
-        if (num < tagInfo.size() && num >= 0 && activeTag != num) {
+        if (num < (int)tagInfo.size() && num >= -1 && activeTag != num) {
             activeTag = num;
             tagTime = 0.0f;
             tagFrame = 0;
+            if (activeTag == -1) {
+                return;
+            }
             if (tagInfo[activeTag].frames.size() > 0) {
                 setFrame(tagInfo[activeTag].frames[0]);
+            } else {
+                setFrame(-1);
             }
         }
+    }
+
+    int Sprite::getTagNum() {
+        return activeTag;
+    }
+
+    int Sprite::getTagCount() {
+        return tagInfo.size();
     }
 
     void Sprite::animate(float dt) {

@@ -35,11 +35,11 @@ int main(int argc, char* argv[]) {
     colorKey.r = 0;
     colorKey.g = 255;
     colorKey.b = 0;
-    spriteLoader.load("headphones_play.png", sprite, true, &colorKey);
-    sprite.setTag("ON");
+    spriteLoader.load("event_chr/chr1.arc.png", sprite, true, &colorKey);
+    sprite.setTagByNum(0);
 
     fontLoader.load("prof-layton.ttf", 24, testText);
-    std::string testTextStr = "- Hola Ferran que tal tot?\n- Molt bé\n- Vols un pikachu?!\n- SIIIII!";
+    std::string testTextStr = "Any test string\nReally serves this purpose\nQuite well";
     testText.setText(testTextStr);
 
     float moveSpeed = 400;
@@ -64,9 +64,12 @@ int main(int argc, char* argv[]) {
         if (inp->getKey(SDL_KeyCode::SDLK_a)) {
             testText.setAlignment(std::max(0.0f, testText.getAlignment() - 0.4f * gm->getDeltaTime()));
         }
+        if (inp->getKeyDown(SDL_KeyCode::SDLK_SPACE)) {
+            sprite.setTagByNum((sprite.getTagNum() + 1) % sprite.getTagCount());
+            std::cout << "Set tag " << sprite.getTagName() << std::endl;
+        }
 
         sprite.animate(gm->getDeltaTime());
-        sprite.rotate(30.0f * gm->getDeltaTime());
 
         SDL_SetRenderDrawColor(cam.getRenderer(), 0, 0, 0, 255);
         SDL_RenderClear(cam.getRenderer());
