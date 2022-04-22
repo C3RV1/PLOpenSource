@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.10)
+
+add_subdirectory(Vector2)
+add_subdirectory(sprite)
+add_subdirectory(input)
+add_subdirectory(font)
+target_sources(PLOpenSource PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Camera.cpp)
+target_sources(PLOpenSource PRIVATE ${CMAKE_CURRENT_LIST_DIR}/GameManager.cpp)
+target_sources(PLOpenSource PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Renderable.cpp)
+target_sources(PLOpenSource PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Screen.cpp)

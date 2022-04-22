@@ -6,8 +6,7 @@ Minigames must be implemented on top of this. This project is not associated in 
 
 ## Build
 
-Right now the project is built using the Makefile which comes w/ the project. We are planning on
-porting it to CMake soon.
+Just use CMake on the root directory. Maybe you need to reconfigure SDL paths on CMakeLists.txt
 
 ## Building assets
 

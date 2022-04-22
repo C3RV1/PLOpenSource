@@ -1,5 +1,6 @@
 # Specify filepatterns you want git to ignore.
 build
+output
 .vscode
 tools/.idea
 *.pyc
