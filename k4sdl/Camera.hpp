@@ -1,7 +1,7 @@
 #ifndef K4SDL_CAMERA
 #define K4SDL_CAMERA
 
-#include "Vector2.hpp"
+#include "Vector2/Vector2.hpp"
 #include "Alignment.hpp"
 #include <SDL.h>
 

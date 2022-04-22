@@ -1,7 +1,7 @@
 #ifndef K4SDL_RENDERABLE
 #define K4SDL_RENDERABLE
 
-#include "Vector2.hpp"
+#include "Vector2/Vector2.hpp"
 #include "Alignment.hpp"
 #include "Camera.hpp"
 #include <SDL.h>

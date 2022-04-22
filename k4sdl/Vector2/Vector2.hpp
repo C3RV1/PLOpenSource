@@ -16,6 +16,9 @@ public:
 	//variables
 	T x,y;
 
+	void set(T l_x, T l_y); // Added
+	void get(T *l_x, T *l_y); // Added
+
 	//operators
 	// Added == and != operators
 	inline bool operator==(const Vector2 &lhs) {

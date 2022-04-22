@@ -1,0 +1,2 @@
+- Added == / != operator to Vector2
+- Added set/get methods to Vector2

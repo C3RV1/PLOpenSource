@@ -15,9 +15,8 @@ namespace k4sdl {
             *l_h = h;
     }
 
-    void Sprite::loadSprite(SpriteLoader* l_loader, SDL_Texture* l_texture, std::vector<Frame> l_frameInfo,
+    void Sprite::loadSprite(SDL_Texture* l_texture, std::vector<Frame> l_frameInfo,
                             std::vector<Tag> l_tagInfo) {
-        loader = l_loader;
         frameInfo = l_frameInfo;
         tagInfo = l_tagInfo;
         activeFrame = -1;
@@ -166,6 +165,7 @@ namespace k4sdl {
             texture = NULL;
         }
         texture = l_texture;
+        width = 0; height = 0;
         if (texture) {
             SDL_SetTextureAlphaMod(texture, alpha);
             SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -203,7 +203,7 @@ namespace k4sdl {
         SDL_SetTextureAlphaMod(texture, alpha);
     }
 
-    void Sprite::setLoader(SpriteLoader* l_loader) {
+    void Sprite::setLoader(std::shared_ptr<SpriteLoader> l_loader) {
         loader = l_loader;
     }
 
@@ -216,6 +216,10 @@ namespace k4sdl {
         if (activeFrame != -1) {
             clip.x = frameInfo[activeFrame].x;
             clip.y = frameInfo[activeFrame].y;
+        }
+        else {
+            clip.x = 0;
+            clip.y = 0;
         }
         clip.w = width;
         clip.h = height;

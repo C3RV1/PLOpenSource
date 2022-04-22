@@ -9,7 +9,7 @@ namespace k4sdl {
 #include <string>
 #include <vector>
 #include "../Renderable.hpp"
-#include "../Vector2.hpp"
+#include "../Vector2/Vector2.hpp"
 #include "SpriteLoader.hpp"
 #include <cmath>
 #include <memory>
@@ -47,7 +47,7 @@ namespace k4sdl {
         float tagTime = 0.0f;
         int tagFrame = 0;
         int alpha = 255;
-        SpriteLoader* loader;
+        std::shared_ptr<SpriteLoader> loader = nullptr;
 
     public:
         Sprite() : scale(1) {}
@@ -55,7 +55,7 @@ namespace k4sdl {
         constexpr static int SNAP_MAX = 0;
         constexpr static int SNAP_MIN = 1;
 
-        void loadSprite(SpriteLoader* l_loader, SDL_Texture* l_texture, std::vector<Frame> l_frameInfo,
+        void loadSprite(SDL_Texture* l_texture, std::vector<Frame> l_frameInfo,
                         std::vector<Tag> l_tagInfo);
         
         void setFrame(int num);
@@ -88,7 +88,7 @@ namespace k4sdl {
         virtual SDL_Rect getScreenRect(Camera cam, SDL_Rect* clip);
         virtual SDL_Rect getWorldRect();
 
-        void setLoader(SpriteLoader* l_loader);
+        void setLoader(std::shared_ptr<SpriteLoader> l_loader);
 
         virtual ~Sprite();
     };

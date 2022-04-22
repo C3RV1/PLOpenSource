@@ -1,9 +1,9 @@
 #include "Font.hpp"
 
 namespace k4sdl {
-    SDL_Texture* Font::render(std::string text, SDL_Color color, SDL_Color* bgColor, int lineSpacing = 0, float hAlign = Alignment::LEFT) {
-        int lineCount = std::count(text.begin(), text.end(), '\n');
-        std::vector<std::string> lines(lineCount + 1);
+    SDL_Texture* Font::render(std::string text, SDL_Color color, SDL_Color* bgColor, int lineSpacing, float hAlign) {
+        int lineCount = std::count(text.begin(), text.end(), '\n') + 1;
+        std::vector<std::string> lines(lineCount);
 
         std::istringstream lineStream(text);
         for (int i = 0; std::getline(lineStream, lines[i]); i++);
@@ -71,11 +71,16 @@ namespace k4sdl {
     }
 
     void TTFFont::getLineSize(std::string text, int *w, int *h) {
-        TTF_SizeText(font, text.c_str(), w, h);
+        TTF_SizeUTF8(font, text.c_str(), w, h);
     }
 
     void TTFFont::renderLine(SDL_Surface* surface, int x, int y, std::string text) {
-        SDL_Surface* renderedText = TTF_RenderText_Solid(font, text.c_str(), currentColor);
+        
+        if (font == NULL) {
+            std::cout << "Error rendering text. Error: font is null" << std::endl;
+            return;
+        }
+        SDL_Surface* renderedText = TTF_RenderUTF8_Solid(font, text.c_str(), currentColor);
         if (renderedText == NULL) {
             std::cout << "Error rendering text. Error: " << TTF_GetError() << std::endl;
             return;

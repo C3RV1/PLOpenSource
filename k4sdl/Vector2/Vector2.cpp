@@ -11,6 +11,20 @@ template<typename T>
 Vector2<T>::Vector2(): x(0), y(0){}
 
 template<typename T>
+void Vector2<T>::set(T l_x, T l_y) {
+	x = l_x;
+	y = l_y;
+}
+
+template<typename T>
+void Vector2<T>::get(T *l_x, T *l_y) {
+	if (l_x != NULL)
+		*l_x = x;
+	if (l_y != NULL)
+		*l_y = y;
+}
+
+template<typename T>
 Vector2<T> Vector2<T>::operator+(const Vector2<T> &right) const{
 	Vector2<T> temp(*this);
 	temp += right;

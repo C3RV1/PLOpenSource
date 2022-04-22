@@ -77,6 +77,6 @@ namespace k4sdl {
             return;
         }
 
-        sprite.loadSprite(this, texture, frameInfo, tagInfo);
+        sprite.loadSprite(texture, frameInfo, tagInfo);
     }
 }

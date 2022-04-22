@@ -1,7 +1,7 @@
 #ifndef K4SDL_INPUT
 #define K4SDL_INPUT
 
-#include <map>
+#include <unordered_map>
 #include <list>
 #include <algorithm>
 #include <SDL.h>
@@ -21,10 +21,10 @@ namespace k4sdl {
         bool getMouseMoved();
         bool getQuit();
     private:
-        std::map<SDL_Keycode, bool> keyDown;
+        std::unordered_map<SDL_Keycode, bool> keyDown;
         std::list<SDL_Keycode> keyUpdated;
 
-        std::map<int, bool> mouseDown;
+        std::unordered_map<int, bool> mouseDown;
         std::list<int> mouseUpdated;
 
         bool quit = false;
