@@ -17,6 +17,8 @@ namespace k4sdl {
     }
 
     bool ButtonSprite::getHover(Camera &cam) {
+        if (!visible)
+            return false;
         int mx, my;
         inp->getMousePos(&mx, &my);
         SDL_Rect sr = this->getScreenRect(cam, NULL);
@@ -24,6 +26,8 @@ namespace k4sdl {
     }
 
     bool ButtonSprite::getPress(Camera &cam) {
+        if (!visible)
+            return false;
         return inp->getMouseDown(1);
     }
 }

@@ -61,6 +61,8 @@ namespace k4sdl {
 
         m_lastTick = SDL_GetTicks();
         m_inputManager.tickEvents();
+        if (m_inputManager.getQuit() || m_inputManager.getKeyDown(SDL_KeyCode::SDLK_ESCAPE))
+            exit();
     }
 
     void GameManager::exit() {

@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
     int screenW, screenH;
     k4sdl::Screen::getScreenSize(&screenW, &screenH);
-    k4sdl::Camera cam(k4sdl::Screen::getRenderer(), screenW, screenH);
+    k4sdl::Camera cam(k4sdl::Screen::getRenderer(), 1280, 720);
     cam.viewport.x = screenW / 4 - 20;
     cam.viewport.y = screenH / 4 - 20;
     cam.viewport.w = screenW / 2 + 40;
@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
     colorKey.b = 0;
     spriteLoader.load("event_chr/chr1.arc.png", sprite, true, &colorKey);
     sprite.setTagByNum(0);
+    sprite.setAlpha(127);
 
     fontLoader.load("prof-layton.ttf", 24, testText);
     std::string testTextStr = "Any test string\nReally serves this purpose\nQuite well";
