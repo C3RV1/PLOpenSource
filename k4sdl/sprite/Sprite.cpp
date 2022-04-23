@@ -22,8 +22,8 @@ namespace k4sdl {
         activeFrame = -1;
         activeTag = -1;
 
-        setFrame(0);
         setTexture(l_texture);
+        setFrame(0);
     }
 
     void Sprite::setFrame(int num) {
@@ -52,22 +52,27 @@ namespace k4sdl {
     }
 
     void Sprite::setTag(std::string name) {
-        int i = 0;
-        for (auto tag : tagInfo) {
-            if (tag.name.compare(name) == 0)
-            {
-                setTagByNum(i);
-                return;
-            }
-            i++;
-        }
-        std::cout << "Tag " << name << " not found" << std::endl;
+        int tagNum = getTagNumByName(name);
+        if (tagNum != -1)
+            setTagByNum(tagNum);
     }
 
     std::string Sprite::getTagName() {
         if (activeTag == -1)
             return "";
         return tagInfo[activeTag].name;
+    }
+
+    int Sprite::getTagNumByName(std::string name) {
+        int i = 0;
+        for (auto tag : tagInfo) {
+            if (tag.name.compare(name) == 0)
+            {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
     void Sprite::setTagByNum(int num) {

@@ -63,6 +63,7 @@ namespace k4sdl {
         int getFrameCount();
         void setTag(std::string name);
         std::string getTagName();
+        int getTagNumByName(std::string name);
         void setTagByNum(int num);
         int getTagNum();
         int getTagCount();

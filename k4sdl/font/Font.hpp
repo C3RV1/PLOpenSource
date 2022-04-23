@@ -15,7 +15,7 @@
 namespace k4sdl {
     class Font {
     public:
-        SDL_Texture* render(std::string text, SDL_Color color, SDL_Color* bgColor, int lineSpacing = 0, float hAlign = Alignment::LEFT);
+        virtual SDL_Texture* render(std::string text, SDL_Color color, SDL_Color* bgColor, int lineSpacing = 0, float hAlign = Alignment::LEFT) final;
         virtual ~Font() {};
     protected:
         virtual void setColor(SDL_Color color) = 0;

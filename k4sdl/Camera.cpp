@@ -23,6 +23,8 @@ namespace k4sdl {
 
     SDL_Rect Camera::clipRect(SDL_Rect &rect) {
         SDL_Rect clip;
+        clip.x = 0;
+        clip.y = 0;
         if (rect.x < viewport.x) {
             clip.x += viewport.x - rect.x;
             rect.x = viewport.x;
