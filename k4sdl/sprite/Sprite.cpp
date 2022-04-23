@@ -191,6 +191,7 @@ namespace k4sdl {
         if (l_scale == scale)
             return;
         scale = l_scale;
+        predictRealSize();
     }
 
     SDL_Texture* Sprite::getTexture() {
@@ -209,6 +210,7 @@ namespace k4sdl {
         width = 0; height = 0;
         if (texture) {
             SDL_SetTextureAlphaMod(texture, alpha);
+            SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
             SDL_QueryTexture(texture, NULL, NULL, &width, &height);
             predictRealSize();
         }
@@ -242,6 +244,7 @@ namespace k4sdl {
             return;
         alpha = l_alpha;
         SDL_SetTextureAlphaMod(texture, alpha);
+        SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     }
 
     void Sprite::setLoader(std::shared_ptr<SpriteLoader> l_loader) {
@@ -265,10 +268,10 @@ namespace k4sdl {
         clip.w = width;
         clip.h = height;
         SDL_Rect position;
-        position.x = (int)(screenPosition.x - (float)width * center.x);
-        position.y = (int)(screenPosition.y - (float)height * center.y);
-        position.w = width;
-        position.h = height;
+        position.x = (int)(screenPosition.x - (float)width * scale.x * cam.zoom.x * center.x);
+        position.y = (int)(screenPosition.y - (float)height * scale.y * cam.zoom.y * center.y);
+        position.w = width * scale.x * cam.zoom.x;
+        position.h = height * scale.y * cam.zoom.y;
         SDL_RendererFlip flip = (SDL_RendererFlip)(SDL_FLIP_HORIZONTAL * flippedX + SDL_FLIP_VERTICAL * flippedY);
         if (visible) {
             SDL_RenderCopyEx(cam.getRenderer(), texture, &clip, &position, rotation, NULL, flip);
@@ -301,7 +304,6 @@ namespace k4sdl {
     }
 
     Sprite::~Sprite() {
-        std::cout << "Sprite destructor called" << std::endl;
         if (texture) {
             SDL_DestroyTexture(texture);
             texture = NULL;

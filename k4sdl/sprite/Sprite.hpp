@@ -72,6 +72,12 @@ namespace k4sdl {
         float getRotation();
         void setRotation(float l_rotation);
         void rotate(float rotationDiff);
+        int getWidth() {
+            return width;
+        }
+        int getHeight() {
+            return height;
+        }
         
         void predictRealSize();
         

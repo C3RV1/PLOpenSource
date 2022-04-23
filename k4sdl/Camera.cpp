@@ -6,17 +6,17 @@ namespace k4sdl {
         Vector2<float> viewportSize(viewport.w, viewport.h);
         if (useWorld)
             point -= worldPosition;
-        point *= zoom;
         point += viewportPos;
         point += viewportSize * alignment;
+        point *= zoom;
     }
 
     void Camera::fromScreen(Vector2<float> &point, bool useWorld) {
         Vector2<float> viewportPos(viewport.x, viewport.y);
         Vector2<float> viewportSize(viewport.w, viewport.h);
+        point /= zoom;
         point -= viewportSize * alignment;
         point -= viewportPos;
-        point /= zoom;
         if (useWorld)
             point += worldPosition;
     }
@@ -47,7 +47,12 @@ namespace k4sdl {
     }
 
     void Camera::setClip() {
-        SDL_RenderSetClipRect(renderer, &viewport);
+        SDL_Rect viewportScaled;
+        viewportScaled.x = viewport.x * zoom.x;
+        viewportScaled.y = viewport.y * zoom.y;
+        viewportScaled.w = viewport.w * zoom.x;
+        viewportScaled.h = viewport.h * zoom.y;
+        SDL_RenderSetClipRect(renderer, &viewportScaled);
     }
 
     SDL_Renderer* Camera::getRenderer() {

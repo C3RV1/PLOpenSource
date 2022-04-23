@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <string>
 #include <iostream>
+#include "Vector2/Vector2.hpp"
 
 namespace k4sdl {
     class Screen {
@@ -13,6 +14,8 @@ namespace k4sdl {
         static SDL_Renderer* getRenderer();
         static void exit();
         static void getScreenSize(int *w, int *h);
+
+        static Vector2<float> getZoomFromExpectedSize(int w_exp, int h_exp);
     private:
         static SDL_Window* m_window;
         static SDL_Renderer* m_renderer;

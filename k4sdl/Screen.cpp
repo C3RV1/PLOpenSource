@@ -44,4 +44,8 @@ namespace k4sdl {
         if (h != NULL)
             *h = m_screenHeight;
     }
+
+    Vector2<float> Screen::getZoomFromExpectedSize(int w_exp, int h_exp) {
+        return Vector2<float>((float)m_screenWidth / (float)w_exp, (float)m_screenHeight / (float)h_exp);
+    }
 }
