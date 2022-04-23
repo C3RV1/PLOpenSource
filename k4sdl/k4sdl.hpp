@@ -1,6 +1,9 @@
 #ifndef K4SDL
 #define K4SDL
 
+#include "audio/Sound.hpp"
+#include "audio/SoundManager.hpp"
+#include "audio/SoundLoader.hpp"
 #include "font/Font.hpp"
 #include "font/FontLoader.hpp"
 #include "input/Input.hpp"

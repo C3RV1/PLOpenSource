@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
 
     k4sdl::Input* inp = gm->getInput();
 
+    k4sdl::Sound testSound;
+
     k4sdl::Sprite sprite;
 
     k4sdl::ButtonSprite testBtn;
@@ -33,6 +35,7 @@ int main(int argc, char* argv[]) {
 
     k4sdl::SpriteLoaderOS spriteLoader("game_data/sprites/");
     k4sdl::FontLoaderOS fontLoader("game_data/fonts/");
+    k4sdl::SoundLoaderOS soundLoader("game_data/audio/");
 
     SDL_Color colorKey;
     colorKey.r = 0;
@@ -50,6 +53,8 @@ int main(int argc, char* argv[]) {
     testBtn.notPressedTagNum = testBtn.getTagNumByName("Idle");
     testBtn.pressedTagNum = testBtn.getTagNumByName("Press");
     testBtn.hoverTagNum = testBtn.getTagNumByName("Hover");
+
+    soundLoader.load("ST_IMA.wav", testSound);
 
     float moveSpeed = 400;
     float rotateSpeed = 45;
@@ -83,6 +88,12 @@ int main(int argc, char* argv[]) {
         if (inp->getKeyDown(SDL_KeyCode::SDLK_SPACE)) {
             sprite.setTagByNum((sprite.getTagNum() + 1) % sprite.getTagCount());
             std::cout << "Set tag " << sprite.getTagName() << std::endl;
+        }
+        if (inp->getKeyDown(SDL_KeyCode::SDLK_p)) {
+            // Play without stopping already playing
+            // Set , -1 to stop all current channels playing this sound
+            // before playing it again
+            testSound.play(0 /*, -1*/);
         }
 
         if (testBtn.getPressed(cam, gm->getDeltaTime())) {
