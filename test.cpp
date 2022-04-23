@@ -1,9 +1,4 @@
-#include "k4sdl/GameManager.hpp"
-#include "k4sdl/sprite/Sprite.hpp"
-#include "k4sdl/sprite/Text.hpp"
-#include "k4sdl/font/FontLoader.hpp"
-#include "k4sdl/sprite/SpriteLoader.hpp"
-#include "k4sdl/ui/ButtonSprite.hpp"
+#include "k4sdl/k4sdl.hpp"
 #include <memory>
 
 int main(int argc, char* argv[]) {
