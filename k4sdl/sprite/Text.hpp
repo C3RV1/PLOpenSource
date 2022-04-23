@@ -30,7 +30,7 @@ namespace k4sdl {
         int getLineSpacing();
         void setAlignment(float l_alignment);
         float getAlignment();
-        virtual void draw(Camera cam);
+        virtual void draw(Camera &cam);
 
     private:
         std::unique_ptr<Font> font = nullptr;

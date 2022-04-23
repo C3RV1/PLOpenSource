@@ -243,7 +243,7 @@ namespace k4sdl {
         loader = l_loader;
     }
 
-    void Sprite::draw(Camera cam) {
+    void Sprite::draw(Camera &cam) {
         Renderable::draw(cam);
         if (texture == NULL) {
             return;
@@ -270,7 +270,7 @@ namespace k4sdl {
         }
     }
 
-    SDL_Rect Sprite::getScreenRect(Camera cam, SDL_Rect* clip) {
+    SDL_Rect Sprite::getScreenRect(Camera &cam, SDL_Rect* clip) {
         positionToScreen(cam);
         int w = (int)((float)realWidth * cam.zoom.x);
         int h = (int)((float)realHeight * cam.zoom.y);
@@ -279,7 +279,10 @@ namespace k4sdl {
         rect.y = (int)(screenPosition.y - (float)realHeight * center.y);
         rect.w = w;
         rect.h = h;
-        cam.clipRect(rect);
+        if (clip != NULL)
+            *clip = cam.clipRect(rect);
+        else
+            cam.clipRect(rect);
         return rect;
     }
 

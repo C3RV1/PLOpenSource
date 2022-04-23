@@ -14,12 +14,12 @@ namespace k4sdl {
         bool useWorld = true;
         Vector2<float> center;
         bool visible = true;
-        virtual void draw(Camera cam);
-        virtual SDL_Rect getScreenRect(Camera cam, SDL_Rect* clip);
+        virtual void draw(Camera &cam);
+        virtual SDL_Rect getScreenRect(Camera &cam, SDL_Rect* clip);
         virtual SDL_Rect getWorldRect();
         virtual ~Renderable() {}
     protected:
-        void positionToScreen(Camera cam);
+        void positionToScreen(Camera &cam);
         Vector2<float> screenPosition;
     };
 }

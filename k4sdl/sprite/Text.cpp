@@ -44,7 +44,7 @@ namespace k4sdl {
         return alignment;
     }
 
-    void Text::draw(Camera cam) {
+    void Text::draw(Camera &cam) {
         if (font == nullptr)
             return;
         render();

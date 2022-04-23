@@ -89,8 +89,8 @@ namespace k4sdl {
         int getAlpha();
         void setAlpha(int l_alpha);
 
-        virtual void draw(Camera cam);
-        virtual SDL_Rect getScreenRect(Camera cam, SDL_Rect* clip);
+        virtual void draw(Camera &cam);
+        virtual SDL_Rect getScreenRect(Camera &cam, SDL_Rect* clip);
         virtual SDL_Rect getWorldRect();
 
         void setLoader(std::shared_ptr<SpriteLoader> l_loader);
