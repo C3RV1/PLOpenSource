@@ -6,7 +6,7 @@ namespace k4sdl {
             return -1;
         m_initiated = true;
 
-        if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
             std::cout << "SDL could not initialize. SDL_Error: " << SDL_GetError() << std::endl;
             return 1;
         }
@@ -22,6 +22,12 @@ namespace k4sdl {
             return 3;
         }
 
+        if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0)
+        {
+            std::cout << "SDL_Mixer could not initialize. Mix_Error: " << Mix_GetError() << std::endl;
+            return 4;
+        }
+
         int flags = SDL_WINDOW_SHOWN;
         if (gmConfig.fullScreen) {
             flags |= SDL_WINDOW_FULLSCREEN;
@@ -30,7 +36,7 @@ namespace k4sdl {
         int screenRes = Screen::newScreen(gmConfig.screenX, gmConfig.screenY, gmConfig.screenWidth, gmConfig.screenHeight, flags, gmConfig.windowName);
         if (screenRes != 0) {
             std::cout << "Screen could not initialize." << std::endl;
-            return 4;
+            return 5;
         }
 
         m_lastTick = SDL_GetTicks();
