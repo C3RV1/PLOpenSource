@@ -66,8 +66,8 @@ namespace k4sdl {
             std::cout << "FPS: " << (int)(1.0f/m_deltaTime) << std::endl;
 
         m_lastTick = SDL_GetTicks();
-        m_inputManager.tickEvents();
-        if (m_inputManager.getQuit() || m_inputManager.getKeyDown(SDL_KeyCode::SDLK_ESCAPE))
+        m_inputManager->tickEvents();
+        if (m_inputManager->getQuit() || m_inputManager->getKeyDown(SDL_KeyCode::SDLK_ESCAPE))
             exit();
     }
 
@@ -89,9 +89,5 @@ namespace k4sdl {
     void GameManagerConfig::setSize(int l_screenWidth, int l_screenHeight) {
         screenWidth = l_screenWidth;
         screenHeight = l_screenHeight;
-    }
-
-    Input* GameManager::getInput() {
-        return &m_inputManager;
     }
 }

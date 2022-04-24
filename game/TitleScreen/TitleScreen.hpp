@@ -21,6 +21,7 @@ private:
     void scrollSprite(k4sdl::Sprite& sprite, float scrollSpeed, k4sdl::Camera &cam, float dt);
     k4sdl::GameManager* gm;
     k4sdl::Input* inp;
+    k4sdl::SoundManager* sndManager;
     k4sdl::SpriteLoader* sprLoader;
     k4sdl::FontLoader* fontLoader;
     k4sdl::Camera cam;

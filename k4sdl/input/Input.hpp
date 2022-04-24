@@ -9,6 +9,12 @@
 namespace k4sdl {
     class Input {
     public:
+        static Input* getInstance()
+        {
+            static Input instance;
+            return &instance;
+        }
+
         void tickEvents();
         bool getKeyDown(SDL_Keycode key);
         bool getKeyUp(SDL_Keycode key);
@@ -21,6 +27,8 @@ namespace k4sdl {
         bool getMouseMoved();
         bool getQuit();
     private:
+        Input() {}
+
         std::unordered_map<SDL_Keycode, bool> keyDown;
         std::list<SDL_Keycode> keyUpdated;
 

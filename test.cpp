@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
     cam.viewport.w = screenW / 2 + 40;
     cam.viewport.h = screenH / 2 + 40;
 
-    k4sdl::Input* inp = gm->getInput();
+    k4sdl::Input* inp = k4sdl::Input::getInstance();
 
     k4sdl::Sound testSound;
 

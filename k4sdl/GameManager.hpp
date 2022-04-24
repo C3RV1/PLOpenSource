@@ -35,14 +35,15 @@ namespace k4sdl {
         void tick();
         float getDeltaTime();
         bool getRunning();
-        Input* getInput();
 
         GameManager(GameManager const&) = delete;
         void operator=(GameManager const&) = delete;
 
         float m_timeScale = 1.0f;
     private:
-        GameManager() {}
+        GameManager() {
+            m_inputManager = Input::getInstance();
+        }
 
         bool m_initiated = false;
         bool m_running = false;
@@ -51,7 +52,7 @@ namespace k4sdl {
         bool m_logFps;
         int m_ticksPerFrame;
 
-        Input m_inputManager;
+        Input* m_inputManager;
     };
 }
 

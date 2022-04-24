@@ -8,7 +8,7 @@ namespace k4sdl {
     class Button {
     public:
         Button(float l_pressedCounter = 0.1f) : pressedCounter(l_pressedCounter) {
-            inp = GameManager::getInstance()->getInput();
+            inp = Input::getInstance();
         }
         virtual bool getPressed(Camera &cam, float dt) final;
         float pressedCounter = 0.1f;

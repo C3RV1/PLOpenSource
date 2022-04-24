@@ -7,7 +7,8 @@ TitleScreen::TitleScreen(k4sdl::SpriteLoader* l_sprLoader, k4sdl::FontLoader* l_
     cam.viewport.x = (1280 - 960) / 2;
     cam.viewport.w = 960;
     gm = k4sdl::GameManager::getInstance();
-    inp = gm->getInput();
+    inp = k4sdl::Input::getInstance();
+    sndManager = k4sdl::SoundManager::getInstance();
 }
 
 void TitleScreen::run() {
@@ -26,6 +27,7 @@ void TitleScreen::run() {
             break;
         }
     }
+    sndManager->stopMusic();
 }
 
 void TitleScreen::mainMenu() {
@@ -33,6 +35,8 @@ void TitleScreen::mainMenu() {
     colorkey.r = 0;
     colorkey.g = 255;
     colorkey.b = 0;
+
+    sndManager->loadMusic("game_data/audio/BGM1.wav");
 
     k4sdl::Sprite bgSprite;
     sprLoader->load("title/main.png", bgSprite);
@@ -85,6 +89,7 @@ void TitleScreen::mainMenu() {
 
     float bgSpeed = 100;
     float senroSpeed = 550;
+    sndManager->playMusic(-1, fadeTime);
     // fade in
     while(currentFadeTime < fadeTime && gm->getRunning()) {
         gm->tick();
@@ -109,7 +114,11 @@ void TitleScreen::mainMenu() {
 
         if (startBtn.getPressed(cam, gm->getDeltaTime())) {
             std::cout << "Start pressed" << std::endl;
-            menu = TitleScreenMenu::LOAD_SAVE;
+            Save* saveData = Save::getInstance();
+            saveData->clear();
+            saveData->gameMode = GameMode::EVENT;
+            saveData->gameModeId = 0;
+            menu = TitleScreenMenu::RETURN;
             break;
         }
         else if (continueBtn.getPressed(cam, gm->getDeltaTime())) {
@@ -128,6 +137,7 @@ void TitleScreen::mainMenu() {
     }
 
     currentFadeTime = 0.0f;
+    sndManager->stopMusic(fadeTime);
     //fade out
     while(currentFadeTime < fadeTime && gm->getRunning()) {
         gm->tick();
