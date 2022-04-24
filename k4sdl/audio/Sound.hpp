@@ -16,8 +16,8 @@ namespace k4sdl {
     public:
         Sound() : sndManager(SoundManager::getInstance()) {}
         void load(Mix_Chunk* l_sndChunk);
-        int play(int loops, int stopAlreadyPlaying=-2);
-        void stop(int channel=-1);
+        int play(int loops, float fadeInTime = 0.0f, int stopAlreadyPlaying=-2);
+        void stop(int channel=-1, float fadeOutTime = 0.0f);
         bool isPlaying();
         void setChunk(Mix_Chunk* l_sndChunk, bool free=true);
         void endedOnChannel(int channel);

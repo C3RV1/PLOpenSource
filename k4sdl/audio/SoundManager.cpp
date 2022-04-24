@@ -21,6 +21,44 @@ namespace k4sdl {
         }
     }
 
+    void SoundManager::loadMusic(std::string path) {
+        Mix_Music* l_music = Mix_LoadMUS(path.c_str());
+        if (l_music == NULL) {
+            std::cout << "Music couldn't be loaded. Path: " << path << " Mix_Error: " << Mix_GetError() << std::endl;
+            return;
+        }
+        stopMusic();
+        Mix_FreeMusic(music);
+        music = l_music;
+    }
+
+    void SoundManager::playMusic(int loops, float fadeInTime) {
+        stopMusic();
+        Mix_FadeInMusic(music, loops, (int)(fadeInTime * 1000.0f));
+    }
+
+    void SoundManager::stopMusic(float fadeOutTime) {
+        if (playingMusic()) {
+            Mix_FadeOutMusic((int)(fadeOutTime * 1000.0f));
+        }
+    }
+
+    bool SoundManager::playingMusic() {
+        return Mix_PlayingMusic() == 1;
+    }
+
+    void SoundManager::pauseMusic() {
+        Mix_PauseMusic();
+    }
+
+    void SoundManager::resumeMusic() {
+        Mix_ResumeMusic();
+    }
+
+    bool SoundManager::pausedMusic() {
+        return Mix_PausedMusic() == 1;
+    }
+
     void SoundManager::stopAllSounds() {
         Mix_HaltChannel(-1);
     }

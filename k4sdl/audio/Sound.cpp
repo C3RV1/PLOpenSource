@@ -5,12 +5,12 @@ namespace k4sdl {
         setChunk(l_sndChunk);
     }
 
-    int Sound::play(int loops, int stopAlreadyPlaying) {
+    int Sound::play(int loops, float fadeInTime, int stopAlreadyPlaying) {
         if (sndChunk == NULL)
             return -1;
         if (stopAlreadyPlaying != -2)
             stop(stopAlreadyPlaying);
-        int channel = Mix_PlayChannel(-1, sndChunk, loops);
+        int channel = Mix_FadeInChannel(-1, sndChunk, loops, (int)(fadeInTime * 1000.0f));
         if (channel != -1) {
             currentChannels.push_back(channel);
             sndManager->soundStarted(channel, this);
@@ -20,20 +20,20 @@ namespace k4sdl {
         return channel;
     }
 
-    void Sound::stop(int channel) {
+    void Sound::stop(int channel, float fadeOutTime) {
         if (channel == -1) {
             std::list<int> channelsToStop(currentChannels);
             for (auto channelToStop : channelsToStop) {
                 if (channelToStop != -1)
-                    stop(channelToStop);
+                    stop(channelToStop, fadeOutTime);
             }
             return;
         }
-        if (std::find(currentChannels.begin(), currentChannels.end(), channel) == currentChannels.end()) {
-            currentChannels.remove(channel);
+        if (std::find(currentChannels.begin(), currentChannels.end(), channel) != currentChannels.end()) {
+            return;
         }
         if (Mix_GetChunk(channel) == sndChunk)
-            Mix_HaltChannel(channel);
+            Mix_FadeOutChannel(channel, (int)(fadeOutTime * 1000.0f));
     }
 
     bool Sound::isPlaying() {
