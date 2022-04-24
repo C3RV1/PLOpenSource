@@ -53,6 +53,18 @@ void Save::puzzleSolved(int puzzleNum) {
     setFlagAtArray(puzzleFlags, puzzleNum * 2 + 1, true);
 }
 
+bool Save::getCoinCollected(int room, int coinNum) {
+    if (room >= ROOM_COUNT || coinNum >= 3)
+        return false;
+    return getFlagFromArray(coinFlags, room * 3 + coinNum);
+}
+
+void Save::collectCoin(int room, int coinNum) {
+    if (room >= ROOM_COUNT || coinNum >= 3)
+        return;
+    setFlagAtArray(coinFlags, room * 3 + coinNum, true);
+}
+
 bool Save::getFlagFromArray(uint8_t *array, int flagNum) {
     uint8_t flagBlockValue = array[flagNum / 8];
     uint8_t flagOffset = flagNum % 8;
@@ -78,6 +90,9 @@ void Save::clear() {
     for (int i = 0; i < (PUZZLE_COUNT * 2 + 7) / 8; i++) {
         puzzleFlags[i] = 0;
     }
+    for (int i = 0; i < (ROOM_COUNT * 2 + 7) / 8; i++) {
+        coinFlags[i] = 0;
+    }
 }
 
 bool Save::load() {
@@ -91,6 +106,7 @@ bool Save::load() {
     f.read((char*)&stage, 1);
     f.read((char*)flags, (FLAG_COUNT + 7) / 8);
     f.read((char*)puzzleFlags, (PUZZLE_COUNT * 2 + 7) / 8);
+    f.read((char*)coinFlags, (ROOM_COUNT * 3 + 7) / 8);
 
     f.close();
     return true;
@@ -107,6 +123,7 @@ bool Save::save() {
     f.write((char*)&stage, 1);
     f.write((char*)flags, (FLAG_COUNT + 7) / 8);
     f.write((char*)puzzleFlags, (PUZZLE_COUNT * 2 + 7) / 8);
+    f.write((char*)coinFlags, (ROOM_COUNT * 3 + 7) / 8);
 
     f.close();
     return true;

@@ -3,6 +3,7 @@
 
 #define FLAG_COUNT 100
 #define PUZZLE_COUNT 200
+#define ROOM_COUNT 200
 
 #include <cstdint>
 #include <string>
@@ -27,14 +28,19 @@ public:
 
     bool getFlag(int flagNum);
     void setFlag(int flagNum, bool flagValue);
+    
     int getChapter();
     void incrementChapter();
     int getStage();
     void incrementStage();
+
     bool getPuzzleFound(int puzzleNum);
     void puzzleFound(int puzzleNum);
     bool getPuzzleSolved(int puzzleNum);
     void puzzleSolved(int puzzleNum);
+
+    bool getCoinCollected(int room, int coinNum);
+    void collectCoin(int room, int coinNum);
 
     bool load();
     bool save();
@@ -54,6 +60,7 @@ private:
     uint8_t stage = 0;
     uint8_t flags[(FLAG_COUNT + 7) / 8];
     uint8_t puzzleFlags[(PUZZLE_COUNT * 2 + 7) / 8];
+    uint8_t coinFlags[(ROOM_COUNT * 3 + 7) / 8];
     Save() {}
 };
 
