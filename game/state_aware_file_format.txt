@@ -1,0 +1,38 @@
+=== State Aware File format ===
+
+Load file depending on the state of the game.
+
+=== Header Chunk ===
+Offset    Name          Length (Bytes)  Type
+0         header        4               4 chars ("SAFF")
+
+=== Segment Chunk ===
+
+Offset    Name           Length (Bytes)  Type
+0         segment_count  1               uint8 (max 127)
+1         segment_data
+
+Segment data
+Offset    Name            Length (Bytes)    Type
+0         segment_length  2                 uint16
+2         data            <segment_length>  data
+
+
+=== Conditions Chunk ===
+
+Chunk containing all the conditions to build the file.
+
+= Condition =
+abcdefgh (b1) (b2)
+a - is_condition (bool)
+=1 - bc - contidion type (if - 00, elif - 01, else - 10, endif - 11)
+     =00/01 - d - negate comparator or negate check (bool)
+              e - is_flag (bool)
+              =0 - fg - comparator (eq - 00, gt - 01, gte - 010)
+                   h - value is 16bits (bool)
+                   =0 - b1 - value (uint8) !b2
+                   =1 - b1 b2 - value (uint16)
+              =1 - fgh - flag_type (uint3)
+                   b1 b2 - flag_num (uint16)
+     =10/11 - defgh = 0 !b1 !b2
+=0 - bcdefgh - segment_num (uint7) !b1 !b2
